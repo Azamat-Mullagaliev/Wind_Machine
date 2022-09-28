@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+ 
+  <head>
+       
+        <title>Web LED Control</title>
+        <meta name="viewport" content="width=400px" />
+       
+        <script src="socket.io/socket.io.js"></script>
+        <link rel="stylesheet" href="style.css">
+		
+  </head>
+
+  <body>
+
+        <p>Change angle 1</p> <input type="range" id= "inputSlider"  min="5" max="145" value="140" step="1" oninput="showValue(this.value)" /> 
+        <br><br><span id="outputText">50</span>
+
+        <p>Change angle 2</p> <input type="range" id= "inputSlider2"  min="30" max="169" value="0" step="1" oninput="showValue2(this.value)" /> 
+        <br><br><span id="outputText2">50</span>
+
+
+
+        <script type="text/javascript">
+                var socket = io.connect();
+                
+
+                               
+                socket.on('led', function (data) {
+                        document.getElementById("inputSlider").value = data.value;
+                        document.getElementById("outputText").innerHTML = data.value;
+                });
+                socket.on('led2', function (data) {
+                        document.getElementById("inputSlider2").value = data.value;
+                        document.getElementById("outputText2").innerHTML = data.value;
+                });
+               
+
+
+                function showValue(newValue)
+                {
+                        document.getElementById("outputText").innerHTML=newValue;
+                        socket.emit('led', { value: newValue });
+                }
+
+                function showValue2(newValue2)
+                {
+                        document.getElementById("outputText2").innerHTML=newValue2;
+                        socket.emit('led2', { value: newValue2 });
+                }
+
+        </script>
+  </body>
+</html>
