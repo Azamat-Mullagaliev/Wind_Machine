@@ -16,7 +16,9 @@ io.sockets.on('connection', function (socket) {
         socket.on('led', function (data) {
                 brightness = data.value;
                 
-                serialPort.write("p"+brightness);
+                serialPort.write(brightness);
+                console.log(brightness);
+                
                 io.sockets.emit('led', {value: brightness});   
                 });
         
