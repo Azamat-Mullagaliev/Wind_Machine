@@ -6,6 +6,17 @@ io = require('socket.io')(server);
 
 var SerialPort = require('serialport').SerialPort;
 var serialPort = new SerialPort({path: "/COM4", baudRate: 9600 });
+
+var fs = require("fs");
+const str = fs.readFileSync('./logs.txt', 'utf8');
+const username = str.split('\n')[0];
+const password = str.split('\n')[1];
+const rider_ID = str.split('\n')[2];
+
+var ZwiftAccount = require("zwift-mobile-api");
+var account = new ZwiftAccount(username, password);
+
+
  
 server.listen(8080);
 app.use(express.static('public'));
