@@ -20,6 +20,12 @@
 		</div>
 
 		<div>
+			<span id="hrText">Heart rate </span>
+			<span id="hrValue">-</span> 
+		</div>
+
+
+		<div>
 			<label for="pitchServo">Change fan direction angle</label>
         		<input type="range" id= "pitchServo"  min="15" max="60" value="45" step="1" oninput="showValue('p',this.value)" /> 
 			
@@ -58,6 +64,9 @@
 			case 'z':
 				document.getElementById("zwiftMode").checked = data.value.slice(1);
 				document.getElementById("engineSpeed").disabled = data.value.slice(1);
+				break;
+			case 'h':
+				document.getElementById("hrValue").innerHTML = data.value.slice(1);
 				break;
             }
 		});
